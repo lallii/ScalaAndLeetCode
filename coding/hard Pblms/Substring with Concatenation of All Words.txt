@@ -1,0 +1,57 @@
+class Solution {
+    public List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> ans=new ArrayList<>();
+        int len=words[0].length();
+        int n=words.length;
+        Map<String,Integer> map = new HashMap<>();
+        for(String word : words)
+        {
+           map.put(word,map.getOrDefault(word,0)+1);
+        }
+        for(int i=0;i<=s.length()-len*n;i++)
+        {
+            Map<String,Integer> map1= new HashMap<>(map);
+            for(int j=0;j<words.length;j++)
+            {
+                String str=s.substring(i+j*len, i+j*len+len);   
+                if(map1.containsKey(str))
+                {
+                    int count=map1.get(str);
+                    if(count==1)
+                       map1.remove(str);
+                    else
+                     map1.put(str,count-1);
+                    if(map1.isEmpty())
+                    {
+                        ans.add(i);
+                        break;
+                    }
+                }
+                else
+                break;
+            }
+        }
+        return ans;
+    }
+}
+
+Example 1:
+
+Input: s = "barfoothefoobarman", words = ["foo","bar"]
+
+Output: [0,9]
+
+Explanation:
+
+The substring starting at 0 is "barfoo". It is the concatenation of ["bar","foo"] which is a permutation of words.
+The substring starting at 9 is "foobar". It is the concatenation of ["foo","bar"] which is a permutation of words.
+
+Example 2:
+
+Input: s = "wordgoodgoodgoodbestword", words = ["word","good","best","word"]
+
+Output: []
+
+Explanation:
+
+There is no concatenated substring.
