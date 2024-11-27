@@ -1,0 +1,43 @@
+class Solution {
+    public String reverseWords(String s) {
+        String temp="",ans="";
+        s=s.trim();
+        for(int i=s.length()-1;i>=0;i--)
+        {
+             char t=s.charAt(i);
+             if(t==' ')
+             {
+                if(!temp.isEmpty()){
+                 StringBuilder sb=new StringBuilder(temp);
+                 temp=sb.reverse().toString();
+                 ans=ans+temp+" ";
+                 temp="";
+                }
+             }
+             else
+               temp+=t;
+        }
+        if(!temp.isEmpty()){
+            StringBuilder sb=new StringBuilder(temp);
+            temp=sb.reverse().toString();
+            ans=ans+temp;
+                
+         }
+        return ans;
+    }
+}
+
+Example 1:
+
+Input: s = "the sky is blue"
+Output: "blue is sky the"
+Example 2:
+
+Input: s = "  hello world  "
+Output: "world hello"
+Explanation: Your reversed string should not contain leading or trailing spaces.
+Example 3:
+
+Input: s = "a good   example"
+Output: "example good a"
+Explanation: You need to reduce multiple spaces between two words to a single space in the reversed string.
