@@ -1,0 +1,56 @@
+import java.io.*;
+import java.util.*;
+ 
+ 
+public class TestClass {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter wr = new PrintWriter(System.out);
+         String T = br.readLine();
+         String S = br.readLine();
+ 
+         boolean out_ = make_equal(T, S);
+         System.out.println(out_==true ? "YES" : "NO");
+ 
+         wr.close();
+         br.close();
+    }
+    static boolean make_equal(String T, String S){
+       // Write your code here
+        boolean result = false;
+        T.trim();
+        S.trim();
+        if(T.length()!=S.length())
+           return false;
+        if(T.equals("") && S.equals(""))
+           return true;
+        HashMap<Character,Integer> hash = new HashMap<>();
+        for(int i=0;i<T.length();i++)
+        {
+            char ch = T.charAt(i);
+            if(hash.containsKey(ch))
+              hash.put(ch,hash.get(ch)+1);
+            else
+              hash.put(ch,1);
+        }
+        for(int i=0;i<S.length();i++)
+        {
+            char ch = S.charAt(i);
+            if(!hash.containsKey(ch))
+               return false;
+             if(hash.get(ch)>=1){
+                 hash.put(ch,hash.get(ch)-1);  
+              }
+              if(hash.get(ch)==0)
+                hash.remove(ch);    
+        }
+        return hash.isEmpty();
+    
+    }
+}
+
+Sample Input
+pcabb
+bbacp
+Sample Output
+YES

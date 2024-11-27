@@ -1,0 +1,57 @@
+import java.util.*;
+class TestClass {
+    public static void main(String args[] ) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.next();
+        int K = sc.nextInt();
+        String num="";
+        int n=s.length(), keep=n-K;
+        if(K>=n)
+        {
+            System.out.println("0");
+            return;
+        }
+        Stack<Character> stack = new Stack<>();
+        for(char digit : s.toCharArray())
+        {
+            while(!stack.isEmpty() && K>0 && stack.peek()<digit)
+            {
+                stack.pop();
+                K--;
+            }
+            stack.push(digit);
+        }
+        while(K>0)
+        {
+           stack.pop();
+                K--; 
+        }
+        StringBuilder sb= new StringBuilder();
+        for(int i=0;i<keep;i++)
+        {
+            sb.append(stack.get(i));
+        }
+        int i=0;
+        while(i<sb.length() && sb.charAt(i)=='0')
+        {
+            i++;
+        }
+        num=(i==sb.length())? "0" : sb.substring(i);
+        System.out.println(num);
+        
+    }
+}
+
+Input format
+
+First line contains integer N.
+Second line contains integer K.
+Output format
+
+Return the largest number which can be obtained by deleting exactly K digits from the number N.
+
+Sample Input
+44312
+2
+Sample Output
+443
