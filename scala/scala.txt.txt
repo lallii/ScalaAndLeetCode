@@ -295,6 +295,102 @@ object InheritanceAndTraits extends App{
 for constructors:
 class Human(name:String,age:Int)
 class Adult(name:String,age:Int,idCard:String) extends Human(name,age)
+overriding:
+In java we can’t override the variables but we can override the variables along with the methods in scala.
+class Animal {
+  val creatureType="Animal"
+  protected def eat= println("animal---")
+}
+class Dog extends Animal{
+  override val creatureType="Dog"
+  override def eat=println("crunch---")
+}
+val d=new Dog
+println(d.creatureType)
+d.eat
+(or)
+class Animal {
+  val creatureType="Animal"
+  protected def eat= println("animal---")
+}
+class Dog(override val creatureType: String) extends Animal{
+  override def eat=println("crunch---")
+}
+val d=new Dog("Dog")
+println(d.creatureType)
+d.eat
+prevent the overriding
+1)	use final on member.
+2)	Use final on the entire class
+3)	Seal the class(sealed)- extend classes in this file, prevent extension in other files.
+Abstract Class:
+abstract class Animal {
+  val creatureType: String
+  def eat: Unit
+}
+class Dog extends Animal {
+   override val creatureType : String="Dog"
+   def eat : Unit= println("override keyword is optional for the implementation of abstract class")
+}
+val dog = new Dog
+dog.eat
+
+Trait:
+trait Carnivore {
+  def eat(animal:Animal) : Unit
+}
+class Crocodile extends Animal with Carnivore{
+  override val creatureType="croc"
+  def eat : Unit=println("nomnom")
+  def eat(animal:Animal) : Unit=println(s"${animal.creatureType}")
+}
+val croc = new Crocodile
+val dog = new Dog
+croc eat dog
+we can implement multiple inheritance in scala using the traits.
+Generics:
+class MyList[A]
+{
+
+}
+val listOfIntegers = new MyList[Int]
+val listOFStrings = new MyList[String]
+covariance:
+class Animal {
+   def print : Unit = println("In Animal Parent class")
+ }
+ class Dog extends Animal
+ {
+   override def print : Unit = println("In Dog Child class")
+ }
+ class Cat extends Animal{
+   override def print : Unit = println("In Cat Child class")
+ }
+
+class Animals[+A]
+{
+   def animal :Animal= new Dog
+}
+val dog = new Dog
+val Animals: Animals[Dog]  = new Animals[Dog]
+val animalAnimals : Animals[Animal] = Animals
+contravariance:
+class Animals[-A]
+{
+   def animal :Animal= new Dog
+}
+val dog = new Dog
+val Animals: Animals[Animal]  = new Animals[Animal]
+val animalAnimals : Animals[Dog] = Animals
+Bounded Types:
+class Animals[A <: Animal](animal: A) => Upper Bound
+{
+   def printing: Unit = animal.print
+}
+class Car
+val animals= new Animals(new Dog) // in this line we can’t pass car object
+animals.printing
+Anonymous Classes: 
 
 
 
