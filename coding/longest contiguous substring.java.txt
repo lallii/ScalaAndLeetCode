@@ -1,0 +1,38 @@
+Find the longest contiguous substring in a given string where all characters are the same.
+For the input string "aaabbccccddee", the output will be "cccc", as it is the longest contiguous substring with the same characters.
+
+public class LongestSameCharSubstring {
+    public static void main(String[] args) {
+        String input = "aaabbccccddee";
+        String result = findLongestSameCharSubstring(input);
+        System.out.println("Longest substring with the same characters: " + result);
+    }
+
+    public static String findLongestSameCharSubstring(String s) {
+        if (s == null || s.isEmpty()) {
+            return "";
+        }
+
+        int maxLength = 1;
+        int currentLength = 1;
+        int endIndex = 0;
+
+        for (int i = 1; i < s.length(); i++) {
+            if (s.charAt(i) == s.charAt(i - 1)) {
+                currentLength++;
+            } else {
+                currentLength = 1;
+            }
+
+            if (currentLength >= maxLength) {
+                maxLength = currentLength;
+                endIndex = i;
+            }
+        }
+
+        return s.substring(endIndex - maxLength + 1, endIndex + 1);
+    }
+}
+
+
+
